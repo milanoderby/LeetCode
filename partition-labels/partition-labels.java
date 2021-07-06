@@ -8,16 +8,16 @@ class Solution {
         int[] lastAppear = new int[26];
 
         for (int i = 0; i < s.length(); i++) {
-            int vowelIndex = s.charAt(i) - 'a';
-            if (firstAppear[vowelIndex] == -1) {
-                firstAppear[vowelIndex] = i;
+            int vowel = s.charAt(i) - 'a';
+            if (firstAppear[vowel] == -1) {
+                firstAppear[vowel] = i;
             }
-            lastAppear[vowelIndex] = i;
+            lastAppear[vowel] = i;
         }
 
         int startOfPartition = 0;
-        int vowelIndex = s.charAt(0) - 'a';
-        int endOfPartition = lastAppear[vowelIndex];
+        int vowel = s.charAt(0) - 'a';
+        int endOfPartition = lastAppear[vowel];
 
         for (int i = 0; i < s.length(); i++) {
             if (i == endOfPartition) {
@@ -27,12 +27,12 @@ class Solution {
                     break;
                 }
                 startOfPartition = i + 1;
-                vowelIndex = s.charAt(i + 1) - 'a';
-                endOfPartition = lastAppear[vowelIndex];
+                vowel = s.charAt(i + 1) - 'a';
+                endOfPartition = lastAppear[vowel];
             } else {
-                vowelIndex = s.charAt(i) - 'a';
-                if (endOfPartition < lastAppear[vowelIndex]) {
-                    endOfPartition = lastAppear[vowelIndex];
+                vowel = s.charAt(i) - 'a';
+                if (endOfPartition < lastAppear[vowel]) {
+                    endOfPartition = lastAppear[vowel];
                 }
             }
         }
