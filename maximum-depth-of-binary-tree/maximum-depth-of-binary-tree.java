@@ -19,27 +19,6 @@ class Solution {
             return 0;
         }
 
-        int maxDepth = -1;
-        Queue<TreeNode> treeQueue = new LinkedList<>();
-        Queue<Integer> treeDepth = new LinkedList<>();
-        treeQueue.add(root);
-        treeDepth.add(1);
-        while (!treeQueue.isEmpty()) {
-            TreeNode treeNode = treeQueue.poll();
-            int depth = treeDepth.poll();
-            maxDepth = Math.max(maxDepth, depth);
-
-            if (Objects.nonNull(treeNode.left)) {
-                treeQueue.add(treeNode.left);
-                treeDepth.add(depth + 1);
-            }
-
-            if (Objects.nonNull(treeNode.right)) {
-                treeQueue.add(treeNode.right);
-                treeDepth.add(depth + 1);
-            }
-        }
-
-        return maxDepth;
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 }
