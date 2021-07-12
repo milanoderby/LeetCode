@@ -1,9 +1,8 @@
 class Solution {
     public int[] countBits(int n) {
         int[] answer = new int[n + 1];
-        for (int i = 0; i <= n; i++) {
-            int prevBitNum = i / 2;
-            answer[i] = answer[prevBitNum] + (i % 2);
+        for (int i = 1; i <= n; i++) {
+           answer[i] = answer[i / 2] + (i % 2);
         }
         return answer;
     }
