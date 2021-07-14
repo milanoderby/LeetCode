@@ -10,24 +10,20 @@ class Solution {
             return -1;
         }
 
-        if (target < nums[0] || nums[nums.length - 1] < target) {
-            return -1;
-        }
-
-        if (target == nums[0]) {
-            return 0;
-        }
-
         int start = 0;
         int end = nums.length;
+        if (target == nums[start]) {
+            return start;
+        }
+
         while (start + 1 < end) {
             int mid = (start + end) / 2;
             if (nums[mid - 1] < target && nums[mid] >= target) {
                 return nums[mid] == target? mid : -1;
-            } else if (target > nums[mid]) {
-                start = mid;
-            } else {
+            } else if (target <= nums[mid]) {
                 end = mid;
+            } else {
+                start = mid;
             }
         }
         return -1;
@@ -38,16 +34,12 @@ class Solution {
             return -1;
         }
 
-        if (target < nums[0] || nums[nums.length - 1] < target) {
-            return -1;
-        }
-
-        if (target == nums[nums.length - 1]) {
-            return nums.length - 1;
-        }
-
         int start = -1;
         int end = nums.length - 1;
+        if (target == nums[end]) {
+            return end;
+        }
+
         while (start + 1 < end) {
             int mid = (start + end) / 2;
             if (nums[mid] <= target && nums[mid + 1] > target) {
