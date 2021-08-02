@@ -1,22 +1,22 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> answer = new ArrayList<>();
-        makeParenthesis(n, 0, 0, "", answer);
+        makeParenthese(answer, 0, 0, n, "");
         return answer;
     }
     
-    private static void makeParenthesis(int totalParenthesis, int openedParenthesis, int closedParenthesis, String parenthesis, List<String> answer) {
-        if (openedParenthesis >= totalParenthesis) {
-            for (int i = 0; i < totalParenthesis - closedParenthesis; i++) {
-                parenthesis += ')';
+    private static void makeParenthese(List<String> answer, int countOfOpenParenthesis, int countOfClosingParenthesis, int countOfParenthesisPair, String parenthese) {
+        if (countOfOpenParenthesis >= countOfParenthesisPair) {
+            for (int i = 0; i < countOfParenthesisPair - countOfClosingParenthesis; i++) {
+                parenthese += ')';
             }
-            answer.add(parenthesis);
+            answer.add(parenthese);
             return;
         }
 
-        makeParenthesis(totalParenthesis, openedParenthesis + 1, closedParenthesis, parenthesis + '(', answer);
-        if (openedParenthesis > closedParenthesis) {
-            makeParenthesis(totalParenthesis, openedParenthesis, closedParenthesis + 1, parenthesis + ')', answer);
+        makeParenthese(answer, countOfOpenParenthesis + 1, countOfClosingParenthesis, countOfParenthesisPair, parenthese + '(');
+        if (countOfOpenParenthesis > countOfClosingParenthesis) {
+            makeParenthese(answer, countOfOpenParenthesis, countOfClosingParenthesis + 1, countOfParenthesisPair, parenthese + ')');
         }
     }
 }
