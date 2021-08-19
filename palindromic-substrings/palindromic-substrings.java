@@ -1,22 +1,25 @@
 class Solution {
     public int countSubstrings(String s) {
-        int countOfPalindromeSubstring = 0;
-        boolean[][] isSubString = new boolean[s.length()][s.length()];
-        for (int j = 0; j < s.length(); j++) {
-            for (int i = 0; i <= j; i++) {
-                if (i == j) {
-                    isSubString[i][j] = true;
-                } else if (i + 1 == j) {
-                    isSubString[i][j] = s.charAt(i) == s.charAt(j);
-                } else {
-                    isSubString[i][j] = (s.charAt(i) == s.charAt(j)) && isSubString[i + 1][j - 1];
-                }
-                
-                if (isSubString[i][j]) {
+        int countOfPalindromeSubstring = s.length();
+
+        for (int i = 0; i < s.length(); i++) {
+            for (int k = 1; 0 <= (i - k) && (i + k) < s.length(); k++) {
+                if (s.charAt(i - k) == s.charAt(i + k)) {
                     countOfPalindromeSubstring++;
+                } else {
+                    break;
+                }
+            }
+
+            for (int k = 0; 0 <= (i - k) && (i + k + 1) < s.length(); k++) {
+                if (s.charAt(i - k) == s.charAt(i + k + 1)) {
+                    countOfPalindromeSubstring++;
+                } else {
+                    break;
                 }
             }
         }
+
         return countOfPalindromeSubstring;
     }
 }
