@@ -9,13 +9,18 @@ class Solution {
             countOfNumber.put(number, numberCount);
         }
 
-        int[] kMostFrequentNumbers = countOfNumber.values().stream()
-                .sorted(Comparator.comparingInt(NumberCount::getCount).reversed())
-                .map(NumberCount::getNum)
-                .limit(k)
-                .mapToInt(Integer::intValue)
-                .toArray();
-        return kMostFrequentNumbers;
+        NumberCount[] numberCountArray = countOfNumber.values().toArray(new NumberCount[countOfNumber.size()]);
+        Arrays.sort(numberCountArray, Comparator.comparingInt(NumberCount::getCount).reversed());
+
+        int[] answer = new int[k];
+        for (int i = 0; i < numberCountArray.length; i++) {
+            if (i == k) {
+                break;
+            }
+
+            answer[i] = numberCountArray[i].getNum();
+        }
+        return answer;
     }
     
     private static class NumberCount {
