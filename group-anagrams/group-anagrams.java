@@ -22,8 +22,6 @@ class Solution {
             anagramMap.put(anagram, anagramList);
         }
 
-        return anagramMap.keySet().stream()
-                .map(anagramMap::get)
-                .collect(Collectors.toList());
+        return new ArrayList<>(anagramMap.values());
     }
 }
