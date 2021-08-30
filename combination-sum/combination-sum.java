@@ -1,26 +1,25 @@
 class Solution {
+    private static List<List<Integer>> answer;
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> answer = new ArrayList<>();
-        LinkedList<Integer> combination = new LinkedList<>();
-        getCombination(candidates, target, 0,0, combination, answer);
-
+        answer = new ArrayList<>();
+        getCombination(candidates, 0, 0, target, new ArrayDeque<>());
         return answer;
     }
     
-    private static void getCombination(int[] candidates, int target, int prevIndex, int sum, LinkedList<Integer> combination, List<List<Integer>> answer) {
+    private static void getCombination(int[] candidates, int index, int sum, int target, Deque<Integer> combination) {
         if (sum > target) {
             return;
         }
 
         if (sum == target) {
-            answer.add(new LinkedList<>(combination));
+            answer.add(new ArrayList<>(combination));
             return;
         }
 
-        for (int i = prevIndex; i < candidates.length; i++) {
-            combination.addLast(candidates[i]);
-            getCombination(candidates, target, i,sum + candidates[i], combination, answer);
-            combination.removeLast();
+        for (int i = index; i < candidates.length; i++) {
+            combination.offerLast(candidates[i]);
+            getCombination(candidates, i, sum + candidates[i], target, combination);
+            combination.pollLast();
         }
     }
 }
