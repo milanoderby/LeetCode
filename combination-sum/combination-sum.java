@@ -2,11 +2,11 @@ class Solution {
     private static List<List<Integer>> answer;
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         answer = new ArrayList<>();
-        getCombination(candidates, 0, 0, target, new ArrayDeque<>());
+        getCombination(candidates, 0, 0, target, new Stack<>());
         return answer;
     }
     
-    private static void getCombination(int[] candidates, int index, int sum, int target, Deque<Integer> combination) {
+    private static void getCombination(int[] candidates, int index, int sum, int target, Stack<Integer> combination) {
         if (sum > target) {
             return;
         }
@@ -17,9 +17,9 @@ class Solution {
         }
 
         for (int i = index; i < candidates.length; i++) {
-            combination.offerLast(candidates[i]);
+            combination.push(candidates[i]);
             getCombination(candidates, i, sum + candidates[i], target, combination);
-            combination.pollLast();
+            combination.pop();
         }
     }
 }
