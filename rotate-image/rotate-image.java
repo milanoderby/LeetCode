@@ -1,21 +1,25 @@
 class Solution {
     public void rotate(int[][] matrix) {
-        // i와 j를 바꾼 후,
-        // j의 출력 순서를 역순으로 한다.
-
-        int[][] answer = new int[matrix.length][matrix.length];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                answer[i][j] = matrix[matrix.length - j - 1][i];
+                if (i >= j) {
+                    continue;
+                }
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
             }
         }
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                matrix[i][j] = answer[i][j];
-                System.out.print(matrix[i][j]);
+        for (int j = 0; j < matrix.length; j++) {
+            if (j >= matrix.length / 2) {
+                continue;
             }
-            System.out.println();
+            for (int i = 0; i < matrix.length; i++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][matrix.length - 1 - j];
+                matrix[i][matrix.length - 1 - j] = temp;
+            }
         }
     }
 }
