@@ -1,5 +1,6 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
+        if(strs == null || strs.length == 0) return Collections.emptyList();
         Map<String, List<String>> anagramMap = new HashMap<>();
         for (String str : strs) {
             char[] countOfChar = new char[26];
@@ -8,18 +9,10 @@ class Solution {
                 countOfChar[ch]++;
             }
 
-            StringBuilder anagramBuilder = new StringBuilder();
-            for (int i = 0; i < countOfChar.length; i++) {
-                if (countOfChar[i] > 0) {
-                    anagramBuilder.append((char) ('a' + i));
-                    anagramBuilder.append(countOfChar[i]);
-                }
-            }
-
-            String anagram = anagramBuilder.toString();
-            List<String> anagramList = anagramMap.getOrDefault(anagram, new ArrayList<>());
+            String anagramKey = new String(countOfChar);
+            List<String> anagramList = anagramMap.getOrDefault(anagramKey, new ArrayList<>());
             anagramList.add(str);
-            anagramMap.put(anagram, anagramList);
+            anagramMap.put(anagramKey, anagramList);
         }
 
         return new ArrayList<>(anagramMap.values());
