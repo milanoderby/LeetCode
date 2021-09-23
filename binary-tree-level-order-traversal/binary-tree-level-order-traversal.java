@@ -18,18 +18,16 @@ class Solution {
         List<List<Integer>> answer = new ArrayList<>();
         Queue<TreeNode> treeNodeQueue = new ArrayDeque<>();
         Queue<Integer> treeNodeHeightQueue = new ArrayDeque<>();
+        
         if (Objects.nonNull(root)) {
-            treeNodeQueue.add(root);
-            treeNodeHeightQueue.add(0);
+            treeNodeQueue.offer(root);
+            treeNodeHeightQueue.offer(0);
         }
 
         while (!treeNodeQueue.isEmpty()) {
             TreeNode treeNode = treeNodeQueue.poll();
             int height = treeNodeHeightQueue.poll();
-            if (Objects.isNull(treeNode)) {
-                continue;
-            }
-
+            
             int value = treeNode.val;
             if (answer.size() == height) {
                 answer.add(new ArrayList<>(Arrays.asList(value)));
@@ -39,16 +37,16 @@ class Solution {
             }
 
             if (Objects.nonNull(treeNode.left)) {
-                treeNodeQueue.add(treeNode.left);
-                treeNodeHeightQueue.add(height + 1);
+                treeNodeQueue.offer(treeNode.left);
+                treeNodeHeightQueue.offer(height + 1);
             }
-
+            
             if (Objects.nonNull(treeNode.right)) {
-                treeNodeQueue.add(treeNode.right);
-                treeNodeHeightQueue.add(height + 1);
+                treeNodeQueue.offer(treeNode.right);
+                treeNodeHeightQueue.offer(height + 1);
             }
         }
-
+        
         return answer;
     }
 }
