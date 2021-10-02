@@ -1,14 +1,20 @@
 class Solution {
     public int findDuplicate(int[] nums) {
-        boolean[] appeared = new boolean[nums.length];
-        int answer = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (appeared[nums[i]]) {
-                answer = nums[i];
-                break;
-            }
-            appeared[nums[i]] = true;
+        int tortoise = nums[0];
+        int hare = nums[0];
+
+        do {
+            tortoise = nums[tortoise];
+            tortoise = nums[tortoise];
+            hare = nums[hare];
+        } while (tortoise != hare);
+
+        hare = nums[0];
+        while (tortoise != hare) {
+            tortoise = nums[tortoise];
+            hare = nums[hare];
         }
-        return answer;
+
+        return hare;
     }
 }
