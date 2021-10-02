@@ -5,11 +5,11 @@ class Solution {
 
         do {
             tortoise = nums[tortoise];
-            tortoise = nums[tortoise];
+            hare = nums[hare];
             hare = nums[hare];
         } while (tortoise != hare);
 
-        hare = nums[0];
+        tortoise = nums[0];
         while (tortoise != hare) {
             tortoise = nums[tortoise];
             hare = nums[hare];
