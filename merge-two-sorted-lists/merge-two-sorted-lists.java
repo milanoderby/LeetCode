@@ -23,13 +23,14 @@ class Solution {
             temp = temp.next;
         }
 
-        ListNode rest = Objects.nonNull(l1) ? l1 : l2;
-        while (Objects.nonNull(rest)) {
-            temp.next = new ListNode(rest.val);
-            rest = rest.next;
-
-            temp = temp.next;
+        if(Objects.isNull(l1)) {
+            temp.next = l2;
         }
+
+        if(Objects.isNull(l2)) {
+            temp.next = l1;
+        }
+
         return answer.next;
     }
 }
