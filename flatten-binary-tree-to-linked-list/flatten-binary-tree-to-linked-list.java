@@ -18,7 +18,7 @@ class Solution {
         if (Objects.isNull(root)) {
             return;
         }
-        
+
         if (Objects.nonNull(root.left)) {
             flatten(root.left);
         }
@@ -26,15 +26,18 @@ class Solution {
         if (Objects.nonNull(root.right)) {
             flatten(root.right);
         }
+
+        TreeNode temp = root.left;
+        if (Objects.isNull(temp)) {
+            return;
+        }
         
-        TreeNode newRight = root.right;
-        root.right = root.left;
-        root.left = null;
-        
-        TreeNode temp = root;
         while (Objects.nonNull(temp.right)) {
             temp = temp.right;
         }
-        temp.right = newRight;
+        temp.right = root.right;
+
+        root.right = root.left;
+        root.left = null;
     }
 }
