@@ -1,28 +1,35 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
-        List<String> answer = new ArrayList<>();
-        StringBuilder letterCombination = new StringBuilder();
-        makeLetterCombinations(digits, 0, letterCombination, answer);
-        
-        return answer;
+        String[] letterOfDigit = new String[10];
+        letterOfDigit[2] = "abc";
+        letterOfDigit[3] = "def";
+        letterOfDigit[4] = "ghi";
+        letterOfDigit[5] = "jkl";
+        letterOfDigit[6] = "mno";
+        letterOfDigit[7] = "pqrs";
+        letterOfDigit[8] = "tuv";
+        letterOfDigit[9] = "wxyz";
+
+        List<String> letterCombinationList = new ArrayList<>();
+        if (digits.length() == 0) {
+            return letterCombinationList;
+        }
+
+        getCombinationOfDigits(0, new StringBuilder(), letterCombinationList, digits, letterOfDigit);
+        return letterCombinationList;
     }
-    
-    private static void makeLetterCombinations(String digits, int index, StringBuilder letterCombination, List<String> answer) {
+
+    private static void getCombinationOfDigits(int index, StringBuilder letterCombination, List<String> letterCombinationList, String digits, String[] letterOfDigit) {
         if (index >= digits.length()) {
-            if (letterCombination.length() > 0) {
-                answer.add(letterCombination.toString());
-            }
+            letterCombinationList.add(letterCombination.toString());
             return;
         }
 
-        char numChar = digits.charAt(index);
-        int offset = 3 * (numChar - '2') + (numChar > '7' ? 1 : 0);
-        char startChar = (char) ('a' + offset);
-        char endChar = (char) (numChar == '7' ||  numChar == '9'? startChar + 3 : startChar + 2);
-
-        for (char ch = startChar; ch <= endChar; ch++) {
-            letterCombination.append(ch);
-            makeLetterCombinations(digits, index + 1, letterCombination, answer);
+        int digitNum = digits.charAt(index) - '0';
+        for (int i = 0; i < letterOfDigit[digitNum].length(); i++) {
+            char letter = letterOfDigit[digitNum].charAt(i);
+            letterCombination.append(letter);
+            getCombinationOfDigits(index + 1, letterCombination, letterCombinationList, digits, letterOfDigit);
             letterCombination.deleteCharAt(index);
         }
     }
