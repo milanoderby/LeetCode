@@ -15,32 +15,26 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        Queue<TreeNode> leftTreeQueue = new LinkedList<>();
-        Queue<TreeNode> rightTreeQueue = new LinkedList<>();
-        leftTreeQueue.add(root.left);
-        rightTreeQueue.add(root.right);
+        return isSame(root.left, root.right);
+    }
 
-        while (!leftTreeQueue.isEmpty() && !rightTreeQueue.isEmpty()) {
-            TreeNode leftTreeNode = leftTreeQueue.poll();
-            TreeNode rightTreeNode = rightTreeQueue.poll();
-
-            if (Objects.isNull(leftTreeNode) && Objects.isNull(rightTreeNode)) {
-                continue;
-            }
-
-            if (Objects.isNull(leftTreeNode) || Objects.isNull(rightTreeNode)) {
-                return false;
-            }
-
-            if (leftTreeNode.val != rightTreeNode.val) {
-                return false;
-            }
-
-            leftTreeQueue.add(leftTreeNode.left);
-            leftTreeQueue.add(leftTreeNode.right);
-            rightTreeQueue.add(rightTreeNode.right);
-            rightTreeQueue.add(rightTreeNode.left);
+    private static boolean isSame(TreeNode left, TreeNode right) {
+        if (Objects.isNull(left) && Objects.isNull(right)) {
+            return true;
         }
-        return true;
+
+        if (Objects.isNull(left) || Objects.isNull(right)) {
+            return false;
+        }
+
+        if (!Objects.equals(left.val, right.val)) {
+            return false;
+        }
+
+        boolean result = true;
+        result &= isSame(left.left, right.right);
+        result &= isSame(left.right, right.left);
+
+        return result;
     }
 }
