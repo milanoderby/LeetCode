@@ -1,19 +1,14 @@
 class Solution {
     public int maxSubArray(int[] nums) {
-        long[] partSum = new long[nums.length + 1];
-        partSum[0] = 0;
-        long sum = 0;
+        int partSum = 0;
+        int minPartSum = 0;
+        int sumOfMaxSubArray = nums[0];
         for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            partSum[i + 1] = sum;
-        }
+            partSum += nums[i];
+            sumOfMaxSubArray = Math.max(sumOfMaxSubArray, partSum - minPartSum);
 
-        long answer = Long.MIN_VALUE;
-        long minPartSum = 0;
-        for (int i = 0; i < nums.length; i++) {
-            minPartSum = Math.min(minPartSum, partSum[i]);
-            answer = Math.max(partSum[i + 1] - minPartSum, answer);
+            minPartSum = Math.min(minPartSum, partSum);
         }
-        return (int)answer;
+        return sumOfMaxSubArray;
     }
 }
