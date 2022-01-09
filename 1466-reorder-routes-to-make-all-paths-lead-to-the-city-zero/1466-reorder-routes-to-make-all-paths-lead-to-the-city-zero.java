@@ -23,19 +23,20 @@ class Solution {
         isVisited[0] = true;
         while (!cityQueue.isEmpty()) {
             int currentCity = cityQueue.poll();
+            
+            for (Integer nextCity : reverseGraph[currentCity]) {
+                if (!isVisited[nextCity]) {
+                    isVisited[nextCity] = true;
+                    cityQueue.add(nextCity);
+                }
+            }
+            
             for (Integer nextCity : graph[currentCity]) {
                 if (!isVisited[nextCity]) {
                     isVisited[nextCity] = true;
                     cityQueue.add(nextCity);
                     
                     numOfEdgeChanged++;
-                }
-            }
-
-            for (Integer nextCity : reverseGraph[currentCity]) {
-                if (!isVisited[nextCity]) {
-                    isVisited[nextCity] = true;
-                    cityQueue.add(nextCity);
                 }
             }
         }
