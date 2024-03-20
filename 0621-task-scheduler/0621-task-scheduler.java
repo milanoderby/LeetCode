@@ -9,14 +9,12 @@ class Solution {
             numberOfTask[task]++;
         }
 
-        // 모든 Task는 0초에 처리되었다고 가정
+        // 모든 Task는 n cycle 이전에 처리되었다고 초기화
+        // 즉, 최초 시점인 1초에는 모든 Task를 실행할 수 있도록 초기화
         int[] timeOfTaskCompleted = new int[26];
         for (int i = 0; i < 26; i++) {
             timeOfTaskCompleted[i] = -1 * n;
         }
-        
-        // 현재 시점은 n초라고 가정
-        // 즉, n초에는 모든 Task를 실행 가능
 
         int sumOfTask = tasks.length;
         int currentTime;
